@@ -1,6 +1,7 @@
 param(
     [string]$UpdaterPath = (Join-Path $PSScriptRoot '..\build\DLSS5-ADDER.cmd'),
-    [string]$EnginePath = (Join-Path $PSScriptRoot '..\build\engine.cmd'),
+    # The engine file the base was assembled from; by default the one built beside it.
+    [string]$EnginePath = '',
     [string]$MissionPath = (Join-Path $PSScriptRoot '..\missions\hello-world')
 )
 Set-StrictMode -Version Latest
@@ -8,22 +9,38 @@ $ErrorActionPreference = 'Stop'
 
 # The release-suite cases that read the hello-world base, which Pluri-Bot owns: the base carries the engine it was assembled from and
 # runs as a plain mission, the single-instance guard holds its folder, and its store view lists the engine file and the removable records
-# but no record of its own. The helper functions are copied unchanged from the DLSS5-Bot release suite, until the engine cases and their
-# harness move here. The launches use isolated stores and a stub host, without console windows.
+# but no record of its own. The helper functions, the case runner and its filter included, are copied unchanged from the DLSS5-Bot release
+# suite, until the engine cases and their harness move here. The launches use isolated stores and a stub host; run this file only through
+# tools/Invoke-SuiteOffscreen.ps1.
 $UpdaterPath = [IO.Path]::GetFullPath($UpdaterPath)
+if ($EnginePath.Length -eq 0) { $EnginePath = Join-Path (Split-Path -Parent $UpdaterPath) 'engine.cmd' }
 $EnginePath = [IO.Path]::GetFullPath($EnginePath)
 $MissionPath = [IO.Path]::GetFullPath($MissionPath)
 $script:Passed = 0
-$script:Failures = [Collections.Generic.List[string]]::new()
+$script:Failures = [System.Collections.Generic.List[string]]::new()
+$script:CasesRun = 0
+$script:CaseTimes = [System.Collections.Generic.List[object]]::new()
 $script:ScratchBase = [IO.Path]::GetFullPath((Join-Path $env:LOCALAPPDATA 'DLSS5-ADDER/test-runs'))
 [IO.Directory]::CreateDirectory($script:ScratchBase) | Out-Null
 $script:ScratchRoot = Join-Path $script:ScratchBase ('pluri-bot-base-' + [Guid]::NewGuid().ToString('N'))
 
 function Invoke-Dlss5Case {
-    param([string]$Name, [scriptblock]$Action)
+    param(
+        [string]$Name,
+        [scriptblock]$Action
+    )
 
-    $clock = [Diagnostics.Stopwatch]::StartNew()
+    # DLSS5_TEST_CASE_FILTER, a regular expression over case names, and DLSS5_TEST_FILE_FILTER, semicolon-separated test file names, run only the cases both select.
+    # In a filtered run, a selected case is named as it starts, for finding a hang.
+    $caseFilter = [Environment]::GetEnvironmentVariable('DLSS5_TEST_CASE_FILTER')
+    $fileFilter = [Environment]::GetEnvironmentVariable('DLSS5_TEST_FILE_FILTER')
+    $file = [IO.Path]::GetFileName($Action.File)
+    if (-not [string]::IsNullOrEmpty($caseFilter) -and $Name -notmatch $caseFilter) { return }
+    if (-not [string]::IsNullOrEmpty($fileFilter) -and $file -notin $fileFilter.Split(';')) { return }
+    if (Test-Dlss5SuiteFiltered) { Write-Host "RUN $Name" }
+    $script:CasesRun++
     $outcome = 'PASS'
+    $clock = [Diagnostics.Stopwatch]::StartNew()
     try {
         & $Action
         $script:Passed++
@@ -33,7 +50,12 @@ function Invoke-Dlss5Case {
         $outcome = 'FAIL'
         $script:Failures.Add("FAIL ${Name}: $($_.Exception.Message)")
     }
-    Write-Host "TIME $($clock.ElapsedMilliseconds) $outcome $Name"
+    $script:CaseTimes.Add([pscustomobject]@{ Milliseconds = $clock.ElapsedMilliseconds; Name = $Name })
+    Write-Host "TIME $($clock.ElapsedMilliseconds) $outcome $file $Name"
+}
+
+function Test-Dlss5SuiteFiltered {
+    return -not ([string]::IsNullOrEmpty([Environment]::GetEnvironmentVariable('DLSS5_TEST_CASE_FILTER')) -and [string]::IsNullOrEmpty([Environment]::GetEnvironmentVariable('DLSS5_TEST_FILE_FILTER')))
 }
 
 function Assert-Dlss5Equal {
@@ -474,6 +496,12 @@ try {
 finally {
     if ($null -ne $script:Library -and (Test-Path -LiteralPath $script:Library.Path)) { Remove-Item -LiteralPath $script:Library.Path -Force -ErrorAction SilentlyContinue }
     Remove-Item -LiteralPath $script:ScratchRoot -Recurse -Force -ErrorAction SilentlyContinue
+}
+
+# A run that selected nothing has checked nothing, so it must not read as a pass.
+if ($script:CasesRun -eq 0) {
+    Write-Host 'NO CASES RAN: the run selected nothing.'
+    exit 1
 }
 
 if ($script:Failures.Count -gt 0) {
