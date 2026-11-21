@@ -1,6 +1,6 @@
 # Mechanical game-notes validation before session end
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 The game-notes finalize step validates `target_display.<display>.last_checked` with `^\d{4}-\d{2}-\d{2}T` plus `DateTimeOffset.TryParse` (RoundtripKind), so it requires a date and time. The mission text only says "Use an ISO 8601 last_checked value or leave it empty", and a bare date such as `2026-11-06` satisfies that wording. An agent that follows the prose can therefore write notes that pass its own strict-grammar checks but fail at exit, when no agent is left to repair them. The agent and the finalize step judge the same file by different rules; sharing one validator removes that drift for every target-display rule, not only this timestamp.
 

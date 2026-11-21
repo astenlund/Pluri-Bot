@@ -1,6 +1,6 @@
 # Composable AI bootstrap builder
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 ## Goal
 
@@ -190,7 +190,7 @@ The display check is the first case and becomes a post-run check of the DLSS mis
 - A package is identified by the pair `v<engine>-<mission>`, each half's number owned by its own repository, starting a new version line at v1-1 (the earlier v1 to v67 become legacy versions), with a prime marking an edited mission or an engine that is not a release's (a dev build, or a local engine change, which stays possible without a release and is offered each newer release through Take or Keep); copies update to the latest release as a whole, ordered by the pair, since neither half ever goes backwards across releases (user decisions, 2026-11-21; [spec](../../docs/repository-home/2026-11-20-repository-home-design.md)).
 - Published packages and auto-update move to GitHub Releases of DLSS5-Bot: automation attaches the .cmd and its SHA-256 to a tagged release, and auto-update reads the latest release. No gist bridge is published: the author switches each copy to v1-1 by hand, v1 starts a fresh trust store, and the gist stays frozen at legacy v67 with its README replaced by a pointer at the releases (user decisions, 2026-11-21).
 - From v1-1 the product carries its repository's name: the package file is `DLSS5-Bot.cmd`, each mission's `PROJECT.json` declaring the file name the engine enforces (`Pluri-Bot.cmd` for the hello-world base), the game notes become `DLSS5-Bot.md`, renamed by the user when a session refuses an old name, as the existing legacy notes rule does today, and the engine keeps its state, shared by every mission, in `%LOCALAPPDATA%\Pluri-Bot`, with the DLSS stores at its root as today; the mission id stays `dlss5`, and the old `%LOCALAPPDATA%\DLSS5-ADDER` folder becomes the archive (user decisions, 2026-11-21).
-- Until the repositories exist, the whole backlog stays here. At migration each entry goes where its code lives, engine work to the builder repository and mission work to DLSS5-Bot; an entry that spans both goes to the builder repository, with a pointer entry in DLSS5-Bot.
+- At migration, in this slice's first step, each backlog entry went where its code lives, engine work to the builder repository and mission work to DLSS5-Bot; an entry that spans both stays in the builder repository, with a pointer entry in DLSS5-Bot.
 - Both repositories are cloned outside LocalAppData, for example under C:/Git. LocalAppData holds only runtime state, apart from the frozen `development\` archive, which stays in the old folder, and the local `release-records\` folder, which moves with the runtime state (user decisions, 2026-11-21), and is never a clone. Each repository's .gitignore still covers exploded files, build output and test scratch.
 
 ## MVP scope

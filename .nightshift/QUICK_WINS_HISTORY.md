@@ -1,6 +1,6 @@
 # Quick wins (history)
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 Implemented quick wins, archived from `QUICK_WINS.md` so the active backlog stays scannable. **Archaeological**: loaded on demand. When a quick win lands, append its entry here rather than to the active file.
 

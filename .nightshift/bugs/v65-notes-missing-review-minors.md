@@ -1,6 +1,6 @@
 # v65 notes missing outcome: deferred review minors
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 Minor findings from the v65 release review of the notes check's missing outcome (`development/v65-notes-missing/`), deferred at release time on 2026-11-18 by the user's decision. None blocked the release. Each is as the reviewer reported it; the mission finding was checked against the mission text, the others were not reproduced.
 

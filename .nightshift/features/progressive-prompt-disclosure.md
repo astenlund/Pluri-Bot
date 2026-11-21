@@ -1,6 +1,6 @@
 # Progressive disclosure for the operating prompt
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 Today the whole prompt is written to one file that the agent reads in full at session start. Move situational sections (settings optimization, local runtime build, bootstrap self-improvement and adoption, cleanup boundary, notes write grammar) into separate files the bootstrap extracts beside the prompt file at launch, each named by an explicit "before X, read Y" pointer; keep the safety core (inspection, trust, transaction and Git rules, safety, interaction) inline. Plain files rather than host-native skills, to avoid writing into the user's skill directories. Open questions: trigger reliability, extraction and cleanup lifecycle for the extra files, and moving prompt assertions to the extracted files plus a check that every pointer resolves. Captured 2026-10-20.
 

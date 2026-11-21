@@ -1,6 +1,6 @@
 # v64 notes validation: deferred review minors
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 Minor findings from the v64 release review of [Mechanical game-notes validation before session end](../features/mechanical-game-notes-validation.md), deferred at release time on 2026-11-17. None blocked the release. Each is as the reviewer reported it; the code findings were not reproduced.
 

@@ -20,7 +20,7 @@ Pluri-Bot's initial commits import the engine of DLSS5-ADDER at legacy v67, the 
 
 ## Backlog
 
-The backlog moves here from the LocalAppData folder's `.nightshift\`, apart from the DLSS release procedure entries ("Release suite in CI" and "Lighter post-review gate"), which go to DLSS5-Bot. The history indexes, the bug records and every feature record other than those two stay together here, so their links still resolve; DLSS5-Bot's backlog points here for the entries that span the engine and its mission. Each moved file that names a `development/` path carries a note marking those paths as the local archive. Once step 1 acceptance passes, the LocalAppData backlog is reduced to a pointer at the two repositories.
+The backlog moves here from the LocalAppData folder's `.nightshift\`, apart from the DLSS release procedure entries ("Release suite in CI" and "Lighter post-review gate"), which go to DLSS5-Bot. The history indexes, the bug records and every feature record other than those two stay together here, so their links still resolve; DLSS5-Bot's backlog points here for the entries that span the engine and its mission. Each moved file that names a `development/` path carries a note marking those paths as the local archive. Once step 1 acceptance passes, the LocalAppData backlog is reduced to a pointer at the two repositories; DLSS5-Bot's import record lists that step with the rest of the LocalAppData cleanup.
 
 ## Privacy sweep
 

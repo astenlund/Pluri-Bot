@@ -1,6 +1,6 @@
 # Single-instance guard
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 Prevent the user from running several DLSS5-ADDER sessions at once where they could interfere. Today no session-wide guard exists: the bootstrap lock and the notes mutexes (`Local\DLSS5-ADDER-MACHINE-NOTES`, `Local\DLSS5-ADDER-PROJECT-KNOWLEDGE`) are each held only around individual operations, and target-directory notes take no lock at all, so two sessions in the same game directory can both run agents that edit the game files and its notes. Connected to [Composable AI bootstrap builder](composable-bootstrap-builder.md), which intends sessions at two different locations not to contend (one mutex per location folder) and lists a session running at a location during Pack up as an open state.
 

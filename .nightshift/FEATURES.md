@@ -1,6 +1,6 @@
 # Features
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 Product-level feature ideas captured during brainstorming. Each entry points at a standalone file under `.nightshift/features/<slug>.md` with the full design sketch. Check this index before proposing new feature directions in the same territory.
 
@@ -122,7 +122,7 @@ When no AI host is installed, offer an attended, per-user install through the ve
 
 ### [Composable AI bootstrap builder](features/composable-bootstrap-builder.md)
 
-Evolve DLSS5-ADDER into a general menu-driven bootstrap that packages a shared engine with task-specific mission content, with explode and absorb authoring, travelling tests behind an Arm gate, declared memory stores and transcript distillation into scripted helpers. Once implemented, it moves to its own Git repository, with DLSS 5 in a separate repository built on its base file.
+Evolve DLSS5-ADDER into a general menu-driven bootstrap that packages a shared engine with task-specific mission content, with explode and absorb authoring, travelling tests behind an Arm gate, declared memory stores and transcript distillation into scripted helpers. It lives in its own Git repository, Pluri-Bot, with DLSS 5 in a separate repository, DLSS5-Bot, that vendors its engine.
 
 **Slices:**
 
@@ -140,7 +140,7 @@ Evolve DLSS5-ADDER into a general menu-driven bootstrap that packages a shared e
   **Requires:** none.
 - ~~**Engine-only auto-update.** Replacing the engine and re-embedding unchanged mission content, keeping test records and disarming, with a changed mission offered separately.~~ (Shipped in bootstrap v59; see FEATURES_HISTORY.md.)
 - ~~**AI-assisted mission merge.** When an update brings a changed mission and the copy's own mission has changes of its own, offer an AI-assisted merge of the two beside taking or keeping either one (user idea, 2026-11-11).~~ (Shipped in bootstrap v60; see FEATURES_HISTORY.md.)
-- **Repository home.** The two repositories, vendored base pinning, automated assembly, GitHub Releases, the backlog split and clones outside LocalAppData.
+- **Repository home.** The two repositories, vendored engine pinning, automated assembly, GitHub Releases, the backlog split and clones outside LocalAppData.
 - **Transcript scan and scrub.** A secret scan and scrub for packed transcripts, to make packing them (probably) safe.
   **Requires:** [Composable AI bootstrap builder: Transcripts and Pack up](features/composable-bootstrap-builder.md).
 - **Drop onto the open window.** Absorbing files dropped onto the open menu window, deferred from the MVP because a probe on 2026-10-25 found that the classic Windows Console Host delivers only one path of a multi-file drop (`development/v50-composable-mvp/probe-window-drop-outcome.md`).

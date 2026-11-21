@@ -1,6 +1,6 @@
 # Features (history)
 
-Paths under `development/` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
 
 Implemented features, archived from `FEATURES.md` so the active backlog stays scannable. **Archaeological**: read only when consulted. When a feature (or a slice of a sliced feature) ships, append its entry here rather than to the active file.
 
