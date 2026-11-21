@@ -4,6 +4,8 @@ $ErrorActionPreference = 'Stop'
 
 # Builds a Pluri-Bot release's files: the engine file, joined from the wrapper and payload.ps1, and the hello-world base, assembled from the engine file
 # with the hello-world mission, each with a .sha256 file. The base must carry exactly the engine it was assembled from, in published form.
+# Joining and assembly read the working tree, untracked and ignored files included, so build-record.json says whether the engine source and
+# the mission folder matched HEAD; a release publishes only a clean build.
 $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $OutputDirectory = [IO.Path]::GetFullPath($OutputDirectory)
 $null = New-Item -ItemType Directory -Force -Path $OutputDirectory
@@ -22,5 +24,11 @@ $utf8 = [Text.UTF8Encoding]::new($false)
 foreach ($file in @(@($engine, $engineSha256), @($base, $baseIdentity.Sha256))) {
     [IO.File]::WriteAllText($file[0] + '.sha256', $file[1] + '  ' + [IO.Path]::GetFileName($file[0]) + "`n", $utf8)
 }
+$commit = (& git -C $repository rev-parse HEAD | Out-String).Trim()
+if ($LASTEXITCODE -ne 0 -or $commit -cnotmatch '^[0-9a-f]{40}$') { throw "Git cannot read the HEAD of $repository" }
+$sourceStatus = @(& git -C $repository status --porcelain --untracked-files=all --ignored -- engine missions/hello-world)
+if ($LASTEXITCODE -ne 0) { throw "Git cannot read the status of $repository" }
+$record = [ordered]@{ engine_version = $baseIdentity.Version; engine_sha256 = $engineSha256; base_sha256 = $baseIdentity.Sha256; commit = $commit; source_clean = ($sourceStatus.Count -eq 0) }
+[IO.File]::WriteAllText((Join-Path $OutputDirectory 'build-record.json'), ($record | ConvertTo-Json) + "`n", $utf8)
 "engine version $($baseIdentity.Version) sha256 $engineSha256"
 "base sha256 $($baseIdentity.Sha256)"
