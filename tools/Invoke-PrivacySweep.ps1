@@ -50,7 +50,8 @@ if ($Range.Length -gt 0) {
     foreach ($commit in @((Read-GitText @('rev-list', '--reverse', $Range)).Split("`n", [StringSplitOptions]::RemoveEmptyEntries))) {
         $short = $commit.Substring(0, 12)
         $items.Add([pscustomobject]@{ Label = "$short message"; Path = ''; Read = { Read-GitText @('log', '-1', '--format=%B', $commit) }.GetNewClosure() })
-        foreach ($file in @((Read-GitText @('diff-tree', '--no-commit-id', '--root', '-r', '--name-only', '--diff-filter=d', $commit)).Split("`n", [StringSplitOptions]::RemoveEmptyEntries))) {
+        # A merge commit lists the files it changes against its first parent, so content only a merge introduces is still swept.
+        foreach ($file in @((Read-GitText @('diff-tree', '--no-commit-id', '--root', '-r', '-m', '--first-parent', '--name-only', '--diff-filter=d', $commit)).Split("`n", [StringSplitOptions]::RemoveEmptyEntries) | Select-Object -Unique)) {
             $items.Add([pscustomobject]@{ Label = "$short $file"; Path = $file; Read = { Read-GitText @('show', ($commit + ':' + $file)) }.GetNewClosure() })
         }
     }
