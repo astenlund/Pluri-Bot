@@ -1,6 +1,6 @@
 # Quick wins (history)
 
-Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository. Entries recorded before the split name that folder's files too: its `tests\` suite now lives in DLSS5-Bot's `tests/`, and the Publication section of its `AGENTS.md` in DLSS5-Bot's `AGENTS.md`.
 
 Implemented quick wins, archived from `QUICK_WINS.md` so the active backlog stays scannable. **Archaeological**: loaded on demand. When a quick win lands, append its entry here rather than to the active file.
 

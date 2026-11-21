@@ -1,6 +1,6 @@
 # Features (history)
 
-Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository.
+Paths under `development/` or `development\` in this file name the frozen local archive in the LocalAppData folder the project came from; they are not part of this repository. Entries recorded before the split name that folder's files too: its `tests\` suite now lives in DLSS5-Bot's `tests/`, and the Publication section of its `AGENTS.md` in DLSS5-Bot's `AGENTS.md`.
 
 Implemented features, archived from `FEATURES.md` so the active backlog stays scannable. **Archaeological**: read only when consulted. When a feature (or a slice of a sliced feature) ships, append its entry here rather than to the active file.
 
