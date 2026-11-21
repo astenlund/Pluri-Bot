@@ -17,6 +17,7 @@ Pluri-Bot is the engine of a composable AI bootstrap: one self-contained `.cmd` 
 - Edit the engine in `engine/payload.ps1` or `engine/wrapper.cmd`, never in a built or vendored copy. A change that alters the engine bytes is a new engine and needs a new engine version.
 - Run console-window tests only through the off-screen runner, under the PowerShell tool rather than Git Bash, never two runs at once, and after stopping a run run `tools/Invoke-SuiteOffscreen.ps1 -RestoreOnly` at once to restore the console host setting. Never let a test show windows on the user's screen.
 - The engine's runtime state on a machine lives under LocalAppData, never in a clone.
+- Before every push, run `tools/Invoke-PrivacySweep.ps1 -Range <outgoing range>` (for a first push, `-Range HEAD`); its literal terms live outside the repository, in the LocalAppData `release-records\sweep-terms.txt`, and a hit or a missing terms file stops the push.
 - Releases: the `legacy-v67` release, made by hand, publishes the imported legacy v67 engine and its hello-world base. The release procedure for new-line engine releases, from v1, is set out in the repository-home design's Step 2 and is added here when that step ships.
 
 ## Engine behavior through legacy v67
