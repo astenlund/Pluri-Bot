@@ -1,0 +1,1 @@
+{"mission_id":"hello-world","rerun":false,"approval_mode":"default","tests":[{"name":"hello","required":false,"role":"target","here_only":false}]}

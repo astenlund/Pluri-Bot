@@ -1,0 +1,8 @@
+# Build output, exploded and dumped package files, and test and tool scratch.
+/build/
+/.tmp/
+*.partial
+/DLSS5-payload.ps1
+# Nightshift run state is local to each machine.
+/.nightshift/runs/
+/.nightshift/setup/
