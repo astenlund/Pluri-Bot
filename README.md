@@ -9,4 +9,4 @@ This repository holds the engine source and the hello-world mission, from which 
 
 [DLSS5-Bot](https://github.com/astenlund/DLSS5-Bot), the DLSS 5 mission, vendors this engine. Descendants may take the Foo-Bot form.
 
-The current engine is the imported legacy v67 engine, released as `legacy-v67`. A new version line starts at v1. See `AGENTS.md` for the layout and the working rules, and `docs/repository-home/` for the design of this repository's creation.
+The current engine is the imported legacy v67 engine, to be released here as `legacy-v67`. A new version line starts at v1. See `AGENTS.md` for the layout and the working rules, and `docs/repository-home/` for the design of this repository's creation.
