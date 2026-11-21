@@ -6,3 +6,10 @@
 # Nightshift run state is local to each machine.
 /.nightshift/runs/
 /.nightshift/setup/
+# Mission files and payload dumps that --dump-payload or Explode would write at the repository root.
+/MISSION.md
+/PROJECT.json
+/SEED.json
+/INSTRUCTIONS.*.md
+/TEST.*.ps1
+/DLSS5-*.md
