@@ -148,6 +148,14 @@ Evolve DLSS5-ADDER into a general menu-driven bootstrap that packages a shared e
 
 **Requires:** none.
 
+## Engine tests
+
+### [Engine cases in Pluri-Bot](features/engine-cases-in-pluri-bot.md)
+
+Move the release suite's engine cases, the ones that test engine behavior on any mission rather than the DLSS mission's own prompt and stores, from DLSS5-Bot into Pluri-Bot with the shared test harness, so Pluri-Bot owns the harness and the copy of its helpers in `tests/Test-PluriBotBase.ps1` ends.
+
+**Requires:** none.
+
 ## Execution modes
 
 ### [Non-interactive mode](features/non-interactive-mode.md)
